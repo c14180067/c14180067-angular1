@@ -9,8 +9,6 @@ export class AppComponent {
   user = 0;
   x = 0;
   y = 0;
-  poin1 = 0;
-  poin2 = 0;
   map = [[]];
 
   constructor() {
@@ -46,31 +44,21 @@ export class AppComponent {
 
   checkGame() {
     var check = 0;
+
+    //horizontal check
     for (var i = 0; i < 5; i++) {
       for (var j = 0; j < 5; j++) {
-        if (this.map[i][j] == this.map[i][j + 1]) {
-          check++;
-          if (check == 4) {
-            if (this.map[i][j] == "0") {
-              return alert("User 0 Win!");
-            } else {
-              return alert("User 1 Win!");
-            }
-          } else {
-            check = 0;
-          }
-        }
-      }
-    }
-    for (var i = 5; i >= 0; i--) {
-      for (var j = 5; j >= 0; j--) {
-        if (this.map[i][j] == this.map[i][j - 1]) {
-          check++;
-          if (check == 4) {
-            if (this.map[i][j] == "0") {
-              return alert("User 0 Win!");
-            } else {
-              return alert("User 1 Win!");
+        if (this.map[i][j] != "*") {
+          if (this.map[i][j] == this.map[i][j + 1]) {
+            check++;
+            if (check == 3) {
+              if (this.map[i][j] == "0") {
+                alert("User 0 Win!");
+                return this.resetGame();
+              } else {
+                alert("User 1 Win!");
+                return this.resetGame();
+              }
             }
           } else {
             check = 0;
@@ -79,15 +67,20 @@ export class AppComponent {
       }
     }
 
+    //vertical check
     for (var i = 0; i < 5; i++) {
       for (var j = 0; j < 5; j++) {
-        if (this.map[i][j] == this.map[i + 1][j]) {
-          check++;
-          if (check == 4) {
-            if (this.map[i][j] == "0") {
-              return alert("User 0 Win!");
-            } else {
-              return alert("User 1 Win!");
+        if (this.map[j][i] != "*") {
+          if (this.map[j][i] == this.map[j + 1][i]) {
+            check++;
+            if (check == 3) {
+              if (this.map[i][j] == "0") {
+                alert("User 0 Win!");
+                return this.resetGame();
+              } else {
+                alert("User 1 Win!");
+                return this.resetGame();
+              }
             }
           } else {
             check = 0;
@@ -95,54 +88,12 @@ export class AppComponent {
         }
       }
     }
-    for (var i = 5; i >= 0; i--) {
-      for (var j = 5; j >= 0; j--) {
-        if (this.map[i][j] == this.map[i - 1][j]) {
-          check++;
-          if (check == 4) {
-            if (this.map[i][j] == "0") {
-              return alert("User 0 Win!");
-            } else {
-              return alert("User 1 Win!");
-            }
-          }
-        } else {
-          check = 0;
-        }
-      }
-    }
+  }
 
-    for (var i = 0; i < 5; i++) {
-      for (var j = 0; j < 5; j++) {
-        if (this.map[i][j] == this.map[i + 1][j + 1]) {
-          check++;
-          if (check == 4) {
-            if (this.map[i][j] == "0") {
-              return alert("User 0 Win!");
-            } else {
-              return alert("User 1 Win!");
-            }
-          }
-        } else {
-          check = 0;
-        }
-      }
-    }
-    for (var i = 5; i >= 0; i--) {
-      for (var j = 5; j >= 0; j--) {
-        if (this.map[i][j] == this.map[i - 1][j - 1]) {
-          check++;
-          if (check == 4) {
-            if (this.map[i][j] == "0") {
-              return alert("User 0 Win!");
-            } else {
-              return alert("User 1 Win!");
-            }
-          } else {
-            check = 0;
-          }
-        }
-      }
-    }
+  resetGame() {
+    this.user = 0;
+    this.x = 0;
+    this.y = 0;
+    this.loadMap();
   }
 }
